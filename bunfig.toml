@@ -1,0 +1,5 @@
+[test]
+root = "src"  # Only scan for tests in the src directory
+timeout = 10000  # 10 seconds (default is 5000ms)
+
+preload = ["./test-setup.ts"]

@@ -1,0 +1,24 @@
+{
+	"name": "simple-server",
+	"module": "index.ts",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"check": "biome check --write --unsafe ."
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.3.2",
+		"@types/bun": "latest",
+		"testcontainers": "^11.7.2",
+		"@testcontainers/postgresql": "^11.7.2"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"dependencies": {
+		"@effect/sql": "^0.46.0",
+		"@effect/sql-pg": "^0.47.0",
+		"effect": "^3.18.4",
+		"umzug": "^3.8.2"
+	}
+}
