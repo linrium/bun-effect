@@ -5,39 +5,39 @@ import { PgLive, PgSetupLive } from "./pg"
 import { describe, test } from "./testing/test"
 
 const testLayer = Layer.unwrapEffect(
-	Effect.gen(function* () {
-		const migrator = yield* MigratorLive
+  Effect.gen(function* () {
+    const migrator = yield* MigratorLive
 
-		yield* migrator.up()
+    yield* migrator.up()
 
-		return Layer.mergeAll(PgLive.Default, MigratorLive.Default)
-	}),
+    return Layer.mergeAll(PgLive.Default, MigratorLive.Default)
+  }),
 ).pipe(Layer.provide(MigratorLive.Default), Layer.provide(PgSetupLive.Default))
 
 describe("2 + 2", () => {
-	test("1", () => {
-		const run = Effect.gen(function* () {
-			const pg = yield* PgLive
+  test("1", () => {
+    const run = Effect.gen(function* () {
+      const pg = yield* PgLive
 
-			yield* pg.sql`INSERT INTO users (id, email) VALUES (${randomUUIDv7()}, ${"linh@gmail.com"})`
+      yield* pg.sql`INSERT INTO users (id, email) VALUES (${randomUUIDv7()}, ${"linh@gmail.com"})`
 
-			const users = yield* pg.sql`SELECT * FROM users`
-			console.log("users", users)
-		}).pipe(Effect.provide(testLayer), Effect.provide(Logger.pretty))
+      const users = yield* pg.sql`SELECT * FROM users`
+      console.log("users", users)
+    }).pipe(Effect.provide(testLayer), Effect.provide(Logger.pretty))
 
-		return run
-	})
+    return run
+  })
 
-	test("2", () => {
-		const run = Effect.gen(function* () {
-			const pg = yield* PgLive
+  test("2", () => {
+    const run = Effect.gen(function* () {
+      const pg = yield* PgLive
 
-			yield* pg.sql`INSERT INTO users (id, email) VALUES (${randomUUIDv7()}, ${"linh@gmail.com"})`
+      yield* pg.sql`INSERT INTO users (id, email) VALUES (${randomUUIDv7()}, ${"linh@gmail.com"})`
 
-			const users = yield* pg.sql`SELECT * FROM users`
-			console.log("users", users)
-		}).pipe(Effect.provide(testLayer), Effect.provide(Logger.pretty))
+      const users = yield* pg.sql`SELECT * FROM users`
+      console.log("users", users)
+    }).pipe(Effect.provide(testLayer), Effect.provide(Logger.pretty))
 
-		return run
-	})
+    return run
+  })
 })
